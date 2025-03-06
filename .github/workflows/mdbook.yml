@@ -3,6 +3,11 @@ name: Deploy mdBook site to Pages
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      commit:
+        type: string
+        description: Commit of `Cuprate/cuprate` to use
+        required: true
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -27,6 +32,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: Cuprate/cuprate
+          ref: ${{ inputs.commit }}
       - name: Install mdBook
         run: |
           cargo install --version ${MDBOOK_VERSION} mdbook
